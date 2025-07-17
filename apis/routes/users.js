@@ -102,8 +102,9 @@ router.post('/user/update', async (req, res) => {
         const User = await mongo.model("User", userSchema);
         const token = req.headers.authorization.split(' ')[1];
         let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
-        let user = await User.find({ _id: decoded['id'] }).exec();
-        if (token) {
+        let user = await User.findById(decoded.id).exec();
+        
+        if (token && user.role == "user") {
             await User.findByIdAndUpdate(decoded.id, {
                 first_name: req.body.first_name ? req.body.first_name : user.first_name,
                 last_name: req.body.last_name ? req.body.last_name : user.last_name,
@@ -112,15 +113,17 @@ router.post('/user/update', async (req, res) => {
                 loc: req.body.loc ? req.body.loc : user.loc
             }, { new: true })
                 .then(updatedUser => {
-                    if (updatedUser) {
-                        res.status(201).send({ "status": "success", "message": 'User updated successfully' })
-                    } else {
-                        res.status(301).send({ "status": "failed", "result": 'User not found' })
-                    }
+                    if (! updatedUser) {
+                        res.status(301).send({ "status": "failed", "result": 'User not found' }); 
+                    } 
                 })
                 .catch(error => {
-                    res.status(501).send({ "status": "failed", "result": error })
+                    res.status(501).send({ "status": "failed", "result": error });
                 });
+
+                user = await User.findById(decoded.id).exec();
+                res.status(201).send({ "status": "success", "result": 'User updated successfully', "user": user })
+
         } else {
             res.status(401).send({ "status": "failed", "result": "provide the token" });
         }

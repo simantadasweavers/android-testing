@@ -6,11 +6,11 @@ const userSchema = new Schema({
     last_name: { type: String, require: true },
     email: { type: String, require: true, unique: true},
     password: { type: String, require: true },
-    pri_phone: { type: String },
+    pri_phone: { type: String, require: true },
     sec_phone: { type: String },
-    role: { type: String, default: "user" }, // ex: user
+    role: { type: String, default: "user" }, // ex: user, tester, admin
     active: { type: Boolean, default: true } ,
-    credits: { type: Number, require: true, default: 0 },
+    credits: { type: Number, default: 0 },
 });
 
 

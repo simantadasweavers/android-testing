@@ -7,3 +7,4 @@ export const ProtectedRoute = () => {
         isAuth ? <Outlet /> : <Login />
     )
 }
+
