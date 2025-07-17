@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review & Submit</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <style>
+        body {
+            background-color: #1a1a2e;
+            color: #ffffff;
+        }
+        .sidebar {
+            background-color: #16213e;
+            height: 100vh;
+            padding: 20px;
+        }
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .sidebar a:hover {
+            color: #00ff00;
+        }
+        .btn-custom {
+            background-color: #00ff00;
+            color: #1a1a2e;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #00cc00;
+        }
+        .step-card {
+            background-color: #16213e;
+            border: none;
+            color: #ffffff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .step-card .step {
+            background-color: #0f3460;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .highlight {
+            color: #00ff00;
+        }
+        .warning-box {
+            background-color: #4a2c2a;
+            border: 2px solid #ff4d4d;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background-color: #0f3460;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style> -->
+
+      <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h4>Testers Community</h4>
+                <a href="#">Dashboard</a>
+                <a href="#">Submit App</a>
+                <a href="#" class="btn btn-custom mt-3">+ Submit New App</a>
+                <a href="#">Support</a>
+                <div class="mt-4">
+                    <img src="person.jpg" alt="Profile" class="profile-img me-2">
+                    <span>Fredericka Single...</span>
+                </div>
+            </div>
+            <!-- Main Content -->
+            <div class="col-md-10 p-4">
+                <h1>Submit Your App <span class="text-success">Get your app tested by 25 professional testers in 14 days</span></h1>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="step-card d-flex align-items-center">
+                        <div class="step bg-success"><span class="text-white">✔</span></div>
+                        <span>100% Production Access Guarantee</span>
+                    </div>
+                    <!-- <div class="progress mx-3" style="flex-grow: 1;">
+                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> -->
+                    <div class="step-card d-flex align-items-center">
+                        <div class="step bg-success"><span class="text-white">✔</span></div>
+                        <span>Setup Guide <small>Step 1</small></span>
+                    </div>
+                    <div class="step-card d-flex align-items-center">
+                        <div class="step bg-success"><span class="text-white">✔</span></div>
+                        <span>App Details <small>Step 2</small></span>
+                    </div>
+                    <div class="step-card d-flex align-items-center">
+                        <div class="step bg-success"><span class="text-white">✔</span></div>
+                        <span>Review & Submit <small>Step 3</small></span>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <h3>Review & Submit</h3>
+                    <p>Review your app details and verify your credits before submitting.</p>
+                    <div class="mb-3">
+                        <p><span class="highlight">✔</span> App Name</p>
+                        <p>Sharon Mercado</p>
+                    </div>
+                    <div class="mb-3">
+                        <p><span class="highlight">✔</span> Testing URL</p>
+                        <p>https://play.google.com/apps/testing/com.microapps.health-care</p>
+                    </div>
+                    <div class="mb-3">
+                        <p><span class="highlight">✔</span> App Icon</p>
+                        <img src="https://via.placeholder.com/50" alt="App Icon" class="img-thumbnail">
+                    </div>
+                    <div class="mb-3">
+                        <p><span class="highlight">✔</span> Additional Instructions</p>
+                        <p>Adipiscing fuga As</p>
+                    </div>
+                    <div class="warning-box">
+                        <p><span class="highlight">⚠</span> Credits Required</p>
+                        <p>You have 0 credits - Need 1 credit to submit</p>
+                    </div>
+                    <div class="info-box">
+                        <p><span class="highlight">🔒</span> Get 1 Credit to Submit Your App</p>
+                        <p>Purchase credits to unlock 25 professional testers for 14 days with production access guarantee.</p>
+                        <button class="btn btn-custom mt-3">Buy Credits - ₹999</button>
+                        <p class="mt-2">opens in new tab - Returns here after purchase</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary">Back</button>
+                        <button type="button" class="btn btn-custom disabled">Need Credits to Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
