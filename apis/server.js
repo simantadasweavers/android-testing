@@ -9,7 +9,7 @@ const routes = require('./routes/index');
 
 const corsOptions = {
     credentials: true,
-    origin:process.env.CORS_URLS,
+    origin: [ 'http://localhost:5174', 'http://localhost:5173' ],
 };
 app.use(cors(corsOptions)); 
 app.use(express.json());

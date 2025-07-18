@@ -25,7 +25,7 @@ export const Login = () => {
                     icon: "success"
                 });
 
-                navigate("/dashboard");
+                location.href = "/dashboard";
             })
             .catch((err) => {
                 Swal.fire({

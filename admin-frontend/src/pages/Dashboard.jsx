@@ -1,8 +1,14 @@
 import { Sidebar } from "../components/Sidebar"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Axios from "../Auth/Axios"
 
 export const Dashboard = () => {
+
+    const [earning, setEarning] = useState(0);
+    const [app_submission, setAppSubmission] = useState(0);
+    const [testing, setTesting] = useState(0);
+    const [app_close, setAppClose] = useState(0);
+    const [apps, setApps] = useState({});
 
     useEffect(() => {
 
@@ -11,7 +17,11 @@ export const Dashboard = () => {
         method: 'post',
       })
       .then((res)=>{
-        console.log(res);
+        setEarning(res.data.earning);
+        setAppSubmission(res.data.app_numbers);
+        setTesting(res.data.testing_apps_number);
+        setAppClose(res.data.app_closed);
+        setApps(res.data.apps);
       })
       .catch((err)=>{
         console.error(err);
@@ -30,7 +40,7 @@ export const Dashboard = () => {
                         <div className="col-lg-3 col-md-6">
                             <div className="ibox bg-success color-white widget-stat">
                                 <div className="ibox-body">
-                                    <h2 className="m-b-5 font-strong">$500</h2>
+                                    <h2 className="m-b-5 font-strong">${earning}</h2>
                                     <div className="m-b-5">Earnings</div><i className="ti-shopping-cart widget-stat-icon"></i>
                                     {/* <div><i className="fa fa-level-up m-r-5"></i><small>25% higher</small></div> */}
                                 </div>
@@ -39,7 +49,7 @@ export const Dashboard = () => {
                         <div className="col-lg-3 col-md-6">
                             <div className="ibox bg-info color-white widget-stat">
                                 <div className="ibox-body">
-                                    <h2 className="m-b-5 font-strong">12</h2>
+                                    <h2 className="m-b-5 font-strong">{app_submission}</h2>
                                     <div className="m-b-5">App Submission</div><i className="ti-bar-chart widget-stat-icon"></i>
                                     {/* <div><i className="fa fa-level-up m-r-5"></i><small>17% higher</small></div> */}
                                 </div>
@@ -48,7 +58,7 @@ export const Dashboard = () => {
                         <div className="col-lg-3 col-md-6">
                             <div className="ibox bg-warning color-white widget-stat">
                                 <div className="ibox-body">
-                                    <h2 className="m-b-5 font-strong">$1570</h2>
+                                    <h2 className="m-b-5 font-strong">{testing}</h2>
                                     <div className="m-b-5">In Testing</div><i className="fa fa-money widget-stat-icon"></i>
                                     {/* <div><i className="fa fa-level-up m-r-5"></i><small>22% higher</small></div> */}
                                 </div>
@@ -57,7 +67,7 @@ export const Dashboard = () => {
                         <div className="col-lg-3 col-md-6">
                             <div className="ibox bg-danger color-white widget-stat">
                                 <div className="ibox-body">
-                                    <h2 className="m-b-5 font-strong">108</h2>
+                                    <h2 className="m-b-5 font-strong">{app_close}</h2>
                                     <div className="m-b-5">App Closed</div><i className="ti-user widget-stat-icon"></i>
                                     {/* <div><i className="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div> */}
                                 </div>
@@ -383,6 +393,7 @@ export const Dashboard = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {  }    
                                             <tr>
                                                 <td>
                                                     Phone pe
