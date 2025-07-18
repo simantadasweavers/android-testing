@@ -2,6 +2,6 @@ import { Outlet } from "react-router";
 import { Login } from "../pages/Login";
 
 export const PrivateRouting = () => {
-    const isAuth = true;
+    const isAuth = localStorage.getItem('access_token');
     return isAuth ? <Outlet /> : <Login /> 
 }

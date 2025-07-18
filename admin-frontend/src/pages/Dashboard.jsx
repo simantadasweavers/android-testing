@@ -1,6 +1,25 @@
 import { Sidebar } from "../components/Sidebar"
+import { useEffect } from "react"
+import Axios from "../Auth/Axios"
 
-export const Home = () => {
+export const Dashboard = () => {
+
+    useEffect(() => {
+
+      Axios({
+        url: `${import.meta.env.VITE_BACKEND_URL}/admin/dashboard`,
+        method: 'post',
+      })
+      .then((res)=>{
+        console.log(res);
+      })
+      .catch((err)=>{
+        console.error(err);
+      })
+
+    }, [])
+    
+
     return (
         <>
             <Sidebar />
