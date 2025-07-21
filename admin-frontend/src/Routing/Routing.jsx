@@ -5,6 +5,7 @@ import { Home } from "../pages/Home"
 import { Login } from "../pages/Login"
 import { Apps } from "../pages/Apps"
 import { AddUser } from "../pages/AddUser"
+import { AssignTester } from "../pages/AssignTester"
 import { Error } from "../pages/Error"
 
 export const Routing = () => {
@@ -19,6 +20,7 @@ export const Routing = () => {
         </Route>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/assign-tester" element={<AssignTester />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </>

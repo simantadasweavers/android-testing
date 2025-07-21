@@ -181,7 +181,6 @@ router.post("/user/create-checkout-session", async (req, res) => {
         let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
 
         const paymentIntent = await stripe.paymentIntents.create({
-            // amount: process.env.USER_CREDIT_PER_APP * 1000,
             amount: req.body.credits * 1000,
             currency: "usd",
             automatic_payment_methods: { enabled: true },

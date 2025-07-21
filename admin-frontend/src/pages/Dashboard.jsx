@@ -12,23 +12,24 @@ export const Dashboard = () => {
 
     useEffect(() => {
 
-      Axios({
-        url: `${import.meta.env.VITE_BACKEND_URL}/admin/dashboard`,
-        method: 'post',
-      })
-      .then((res)=>{
-        setEarning(res.data.earning);
-        setAppSubmission(res.data.app_numbers);
-        setTesting(res.data.testing_apps_number);
-        setAppClose(res.data.app_closed);
-        setApps(res.data.apps);
-      })
-      .catch((err)=>{
-        console.error(err);
-      })
+        Axios({
+            url: `${import.meta.env.VITE_BACKEND_URL}/admin/dashboard`,
+            method: 'post',
+        })
+            .then((res) => {
+                setEarning(res.data.earning);
+                setAppSubmission(res.data.app_numbers);
+                setTesting(res.data.testing_apps_number);
+                setAppClose(res.data.app_closed);
+                
+                setApps(res.data.apps);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
 
     }, [])
-    
+
 
     return (
         <>
@@ -393,18 +394,35 @@ export const Dashboard = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {  }    
-                                            <tr>
-                                                <td>
-                                                    Phone pe
-                                                </td>
-                                                <td>@Jack</td>
-                                                <td>
-                                                    <span className="badge badge-success">Shipped</span>
-                                                </td>
-                                                <td>10/07/2017</td>
-                                            </tr>
-                                            
+                                            {apps.length ? apps.slice(0, 10).map((x, y) => {
+                                                let status = null, status_badge = null;
+                                                if(x.status == "approval"){
+                                                    status = "Waiting For Approval";
+                                                    status_badge = "badge-info";
+                                                }
+                                                else if(x.status == "progress"){
+                                                    status = "In progress";
+                                                    status_badge = "badge-warning";
+                                                }
+                                                else if(x.status == "ready"){
+                                                    status = "Ready for live";
+                                                    status_badge = "badge-success";
+                                                }
+                                                
+                                                return(
+                                                    <tr key={x.id}>
+                                                    <td>
+                                                        { x.app_name }
+                                                    </td>
+                                                    <td>{x.user_id.first_name+" "+x.user_id.last_name}</td>
+                                                    <td>
+                                                        <span className={"badge "+status_badge}>{status}</span>        
+                                                    </td>
+                                                    <td>{x.date}</td>
+                                                </tr>
+                                                )
+                                            }) : ''}
+
                                         </tbody>
                                     </table>
                                 </div>

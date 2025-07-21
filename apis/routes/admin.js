@@ -133,7 +133,6 @@ router.post('/admin/dashboard', async (req, res) => {
         if (req.headers.authorization) {
             const token = req.headers.authorization.split(' ')[1];
             let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
-            console.log(decoded['id']);
 
             if (decoded['id']) {
                 const mongo = await Mongo();
@@ -151,7 +150,7 @@ router.post('/admin/dashboard', async (req, res) => {
                         }
                     ]);
                     const earning = result[0].totalCredits;
-                    const apps = await App.find({}).exec();
+                    const apps = await App.find({}).populate("user_id");
 
                     res.status(200).send({ "status": "success", "earning": earning, "app_numbers": apps.length, "testing_apps_number": 2, "app_closed": 3, "apps": apps });
                 } else {
@@ -167,6 +166,107 @@ router.post('/admin/dashboard', async (req, res) => {
         res.status(500).send({ "status": "failed", "result": err });
     }
 });
+
+router.post('/admin/apps', async (req, res) => {
+    try {
+        if (req.headers.authorization) {
+            const token = req.headers.authorization.split(' ')[1];
+            let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
+
+            if (decoded['id']) {
+                const mongo = await Mongo();
+                const User = await mongo.model("User", userSchema);
+                const Admin = await User.findById(decoded['id']).exec();
+                if (Admin.role === "admin") {
+                    const App = await mongo.model("App", appSchema);
+                    const apps = await App.find({}).populate("user_id").populate("tester_id");
+
+                    res.status(200).send({ "status": "success", "apps": apps });
+                } else {
+                    res.status(401).send({ "status": "failed", "result": "you are not admin user" });
+                }
+            }
+        } else {
+            res.status(500).send({ "status": "failed", "result": "Please provide the token" });
+        }
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ "status": "failed", "result": err });
+    }
+});
+
+
+router.post('/admin/app_detail', async (req, res) => {
+    try {
+        if (req.headers.authorization) {
+            const token = req.headers.authorization.split(' ')[1];
+            let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
+
+            if (decoded['id']) {
+                const mongo = await Mongo();
+                const User = await mongo.model("User", userSchema);
+                const Admin = await User.findById(decoded['id']).exec();
+                if (Admin.role === "admin") {
+                    const App = await mongo.model("App", appSchema);
+                    const app = await App.findById(req.body.app_id).populate("user_id").populate("tester_id");
+                    const user = await User.find({ "role": "tester" }).exec();
+                    res.status(200).send({ "status": "success", "app": app, "user": user });
+                } else {
+                    res.status(401).send({ "status": "failed", "result": "you are not admin user" });
+                }
+            }
+        } else {
+            res.status(500).send({ "status": "failed", "result": "Please provide the token" });
+        }
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ "status": "failed", "result": err });
+    }
+});
+
+
+router.post('/admin/tester/assign', async (req, res) => {
+    try {
+        if (req.headers.authorization) {
+            const token = req.headers.authorization.split(' ')[1];
+            let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
+
+            if (decoded['id']) {
+                const mongo = await Mongo();
+                const User = await mongo.model("User", userSchema);
+                const Admin = await User.findById(decoded['id']).exec();
+                if (Admin.role === "admin") {
+                    const App = await mongo.model("App", appSchema);
+                    await App.findByIdAndUpdate(req.body.app_id, {
+                        status: "progress",
+                        tester_id: req.body.tester_id,
+                    }, { new: true })
+                        .then(updatedApp => {
+                            if (!updatedApp) {
+                                res.status(301).send({ "status": "failed", "result": 'App not found' })
+                            }
+                        }).catch(error => {
+                            res.status(501).send({ "status": "failed", "result": error })
+                        });
+
+                    res.status(200).send({ "status": "success", "result":"App record updated" });
+
+                } else {
+                    res.status(401).send({ "status": "failed", "result": "you are not admin user" });
+                }
+            }
+        } else {
+            res.status(500).send({ "status": "failed", "result": "Please provide the token" });
+        }
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ "status": "failed", "result": err });
+    }
+});
+
 
 
 module.exports = router;

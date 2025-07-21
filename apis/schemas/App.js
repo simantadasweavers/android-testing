@@ -10,7 +10,8 @@ const appSchema = new Schema({
     date: String,
     status: { type: String, default: 'approval' }, // ex: app states: 'approval', 'progress', 'ready' 
     user_id: {type: mongoose.Types.ObjectId, ref: "User", require: true},
-    tester_id: {type: mongoose.Types.ObjectId, ref: "User"}
+    tester_id: {type: mongoose.Types.ObjectId, ref: "User"},
+    test_start_date: String,
 });
 
 module.exports = appSchema;

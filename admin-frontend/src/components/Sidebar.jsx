@@ -168,7 +168,7 @@ export const Sidebar = () => {
                     </div>
                     <ul className="side-menu metismenu">
                         <li>
-                            <Link to="/" className="active">
+                            <Link to="/dashboard" className="active">
                                 <i className="sidebar-item-icon fa fa-th-large"></i>
                                 <span className="nav-label">Dashboard</span>
                             </Link>
